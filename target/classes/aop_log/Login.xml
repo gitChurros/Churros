@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<bean id="login" class="aop_log.Login"/> <!-- 객체생성 -->
+	<bean id="logout" class="aop_log.Logout"/>
+	<bean id="search" class="aop_log.Search"/>
+	
+	<bean id="printLog" class="aop_log.PrintLog"/>
+	
+	<!--Aspect 설정 : Advice를 어떤 Pointcut에 적용할 지 설정 -->
+	<aop:config>
+	
+		<aop:aspect id="loginAspect" ref="printLog">
+			<aop:pointcut id="loginMethod" expression="execution(* log(..))" />
+			<aop:before pointcut-ref="loginMethod" method="login" />
+		</aop:aspect>
+		
+	</aop:config>
+	
+</beans>
